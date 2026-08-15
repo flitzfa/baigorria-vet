@@ -2,17 +2,17 @@
 
 @theme {
   /* Colores de marca - Sistema genérico reutilizable */
-  --color-brand-50: #e8f5ee;
-  --color-brand-100: #d1ebdd;
-  --color-brand-200: #a3d7bb;
-  --color-brand-300: #75c399;
-  --color-brand-400: #47af77;
-  --color-brand-500: #1a9c55;
-  --color-brand-600: #168046;
-  --color-brand-700: #126437;
-  --color-brand-800: #0e4828;
-  --color-brand-900: #0a2c19;
-  --color-brand-950: #05100a;
+  --color-brand-50: #faf3ee;
+  --color-brand-100: #f2e2d5;
+  --color-brand-200: #e4c4ac;
+  --color-brand-300: #d5a37f;
+  --color-brand-400: #c98a5f;
+  --color-brand-500: #ba7346;
+  --color-brand-600: #a05f38;
+  --color-brand-700: #7d4a2c;
+  --color-brand-800: #5c3720;
+  --color-brand-900: #3d2415;
+  --color-brand-950: #1f120a;
 
   /* Tipografías */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;

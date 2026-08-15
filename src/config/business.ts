@@ -15,11 +15,11 @@ export const business = {
   },
 
   // Nombres
-  name: 'Veterinaria Modelo',
-  fullName: 'Veterinaria Modelo',
+  name: 'Veterinaria Baigorria',
+  fullName: 'Veterinaria Baigorria',
   tagline: 'Atención clínica de perros, gatos y animales no tradicionales',
   branding: {
-    logoAlt: 'Logo Veterinaria Modelo',
+    logoAlt: 'Logo Veterinaria Baigorria',
   },
 
   // Feature flags
@@ -28,19 +28,19 @@ export const business = {
   },
 
   // Teléfono (formato internacional sin + ni espacios, para wa.me)
-  phone: '5491155551234',
-  phoneFormatted: '+54 9 11 5555-1234',
+  phone: '5491135990190',
+  phoneFormatted: '+54 9 11 3599-0190',
 
   // Mensajes prellenados de WhatsApp
   whatsappMessages: {
-    general: 'Hola Veterinaria Modelo! Quiero contactar con ustedes',
-    turno: 'Hola Veterinaria Modelo! Quiero pedir turno para consulta veterinaria',
-    consultarGeneral: 'Hola Veterinaria Modelo! Quiero consultar por servicios veterinarios',
-    consultarServicio: (especialidad: string) => `Hola Veterinaria Modelo! Quiero consultar por la especialidad: ${especialidad}`,
-    consultarServicios: 'Hola Veterinaria Modelo! Quería consultar sobre las especialidades médicas que ofrecen',
-    consultarProducto: (producto: string) => `Hola Veterinaria Modelo! Quiero consultar por el producto: ${producto}`,
-    consultarProductoColor: (producto: string, color: string) => `Hola Veterinaria Modelo! Quiero consultar por el producto: ${producto} (Color: ${color})`,
-    comoLlegar: 'Hola Veterinaria Modelo! Quiero saber cómo llegar a la clínica',
+    general: 'Hola Veterinaria Baigorria! Quiero contactar con ustedes',
+    turno: 'Hola Veterinaria Baigorria! Quiero pedir turno para consulta veterinaria',
+    consultarGeneral: 'Hola Veterinaria Baigorria! Quiero consultar por servicios veterinarios',
+    consultarServicio: (especialidad: string) => `Hola Veterinaria Baigorria! Quiero consultar por la especialidad: ${especialidad}`,
+    consultarServicios: 'Hola Veterinaria Baigorria! Quería consultar sobre las especialidades médicas que ofrecen',
+    consultarProducto: (producto: string) => `Hola Veterinaria Baigorria! Quiero consultar por el producto: ${producto}`,
+    consultarProductoColor: (producto: string, color: string) => `Hola Veterinaria Baigorria! Quiero consultar por el producto: ${producto} (Color: ${color})`,
+    comoLlegar: 'Hola Veterinaria Baigorria! Quiero saber cómo llegar a la clínica',
   },
 
   // Navegación y labels globales
@@ -56,16 +56,16 @@ export const business = {
 
   // Contenido del Hero (editable por cliente)
   hero: {
-    headlineTop: 'Veterinaria Modelo',
-    locationLine: 'en Villa Crespo, CABA',
-    subtitle: 'Atención clínica integral con 18 especialidades médicas. Cuidamos lo que más amás.',
+    headlineTop: 'Veterinaria Baigorria',
+    locationLine: 'en Gregorio de Laferrere, Buenos Aires',
+    subtitle: 'Atención clínica integral. Clínica general sin turno, ecografías y castraciones con turno. Especialidades médicas.',
     primaryCtaLabel: 'Ver Especialidades',
     secondaryCtaLabel: 'Contactar por WhatsApp',
     trustItems: [
       'Veterinarios matriculados',
-      '18 especialidades médicas',
-      'Atención personalizada',
-      'Ubicación: Av. Corrientes 4500',
+      'Atención sin turno (por orden de llegada)',
+      'Ecografías y castraciones con turno',
+      'Ubicación: Estanislao del Campo 4239, La Ferrere',
     ],
   },
 
@@ -73,8 +73,8 @@ export const business = {
   sections: {
     services: {
       badge: 'Nuestras Especialidades',
-      title: '18 especialidades médicas para el cuidado integral de tu mascota',
-      subtitle: 'Atención clínica de perros, gatos y animales no tradicionales con profesionales especializados',
+      title: 'Atención clínica y especialidades médicas para tu mascota',
+      subtitle: 'Clínica general sin turno, ecografías y castraciones con turno. Especialidades médicas con profesionales especializados.',
       generalTitle: 'Atención General',
       specialtiesTitle: 'Especialidades Médicas',
       specialtiesCtaLabel: 'Consultá por cualquier especialidad',
@@ -82,8 +82,8 @@ export const business = {
     },
     location: {
       badge: 'Horarios y Ubicación',
-      title: 'Visitanos en Villa Crespo',
-      subtitle: 'Estamos en Av. Corrientes 4500. Te esperamos con tu mascota.',
+      title: 'Visitanos en Gregorio de Laferrere',
+      subtitle: 'Estamos en Estanislao del Campo 4239, La Ferrere. Te esperamos con tu mascota.',
       hoursTitle: 'Horarios de Atención',
       hoursCardTitle: 'Clínica Veterinaria',
       whereToFindUsTitle: 'Dónde Encontrarnos',
@@ -95,11 +95,13 @@ export const business = {
       hoursTitle: 'Horarios',
       taglineSuffix: 'Cuidamos lo que más amás.',
       quickLinks: [
-        { label: 'Atención clínica perros y gatos', href: '#servicios' },
-        { label: 'Animales no tradicionales', href: '#servicios' },
-        { label: 'Plan vacunal y antirrábico', href: '#servicios' },
-        { label: 'Especialidades médicas', href: '#servicios' },
-        { label: 'Cirugías y kinesiología', href: '#servicios' },
+        { label: 'Clínica general', href: '#servicios' },
+        { label: 'Ecografías', href: '#servicios' },
+        { label: 'Castraciones', href: '#servicios' },
+        { label: 'Gastroenterología', href: '#servicios' },
+        { label: 'Cardiología', href: '#servicios' },
+        { label: 'Etología', href: '#servicios' },
+        { label: 'Cirugías', href: '#servicios' },
       ],
     },
   },
@@ -107,147 +109,119 @@ export const business = {
   // Datos de servicios (editable por cliente)
   servicesCatalog: {
     general: [
-      { name: 'Atención clínica de perros y gatos', icon: 'dog-cat' },
-      { name: 'Atención clínica de animales no tradicionales', icon: 'exotic' },
-      { name: 'Plan vacunal', icon: 'vaccine' },
-      { name: 'Certificado de salud', icon: 'certificate' },
-      { name: 'Control antirrábico', icon: 'rabies' },
-      { name: 'Colocación de microchip', icon: 'microchip' },
-      { name: 'Análisis de laboratorio', icon: 'lab' },
+      { name: 'Clínica general', icon: 'dog-cat' },
       { name: 'Ecografías', icon: 'ultrasound' },
+      { name: 'Castraciones', icon: 'surgery' },
     ],
     specialties: [
-      { name: 'Cardiología', icon: 'cardio' },
-      { name: 'Nutrición', icon: 'nutrition' },
-      { name: 'Endocrinología', icon: 'endocrine' },
-      { name: 'Oftalmología', icon: 'eye' },
-      { name: 'Dermatología', icon: 'skin' },
       { name: 'Gastroenterología', icon: 'stomach' },
+      { name: 'Cardiología', icon: 'cardio' },
       { name: 'Etología', icon: 'behavior' },
-      { name: 'Traumatología', icon: 'trauma' },
       { name: 'Cirugías', icon: 'surgery' },
-      { name: 'Kinesiología', icon: 'physio' },
     ],
   },
 
   // Dirección
   address: {
-    street: 'Av. Corrientes 4500',
-    city: 'Villa Crespo',
-    region: 'Ciudad Autónoma de Buenos Aires',
+    street: 'Estanislao del Campo 4239',
+    city: 'La Ferrere',
+    region: 'Buenos Aires',
     country: 'Argentina',
     countryCode: 'AR',
     // Para Google Maps / schema.org
-    streetAddress: 'Av. Corrientes 4500',
-    addressLocality: 'Villa Crespo',
-    addressRegion: 'Ciudad Autónoma de Buenos Aires',
+    streetAddress: 'Estanislao del Campo 4239',
+    addressLocality: 'La Ferrere',
+    addressRegion: 'Buenos Aires',
     // Texto completo para mostrar
-    full: 'Av. Corrientes 4500, Villa Crespo, Ciudad Autónoma de Buenos Aires',
-    short: 'Av. Corrientes 4500, Villa Crespo',
-    withCrossStreet: 'Av. Corrientes 4500 - Villa Crespo, CABA',
+    full: 'Estanislao del Campo 4239, La Ferrere (Gregorio de Laferrere), Buenos Aires, Argentina',
+    short: 'Estanislao del Campo 4239, La Ferrere',
+    withCrossStreet: 'Estanislao del Campo 4239 - La Ferrere (Gregorio de Laferrere), Buenos Aires',
   },
 
   // Redes sociales
-  instagram: 'vetmodelo',
-  instagramUrl: 'https://instagram.com/vetmodelo',
-  whatsappUrl: 'https://wa.me/5491155551234',
-  googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Av.+Corrientes+4500,+Villa+Crespo,+CABA',
+  instagram: 'veterinariabaigorria',
+  instagramUrl: 'https://instagram.com/veterinariabaigorria',
+  whatsappUrl: 'https://wa.me/5491135990190',
+  email: 'veterinariabaigorria1@gmail.com',
+  googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Estanislao+del+Campo+4239,+La+Ferrere,+Buenos+Aires,+Argentina',
   googleMapsPlaceUrl: 'https://www.google.com/maps/place/?q=place_id:PLACEHOLDER_PLACE_ID',
 
   // Horarios de atención (modelo flexible)
   hours: {
     schedule: [
       {
-        label: 'Lunes a Viernes',
-        shortLabel: 'Lun–Vie',
-        dayIndices: [1, 2, 3, 4, 5],
+        label: 'Lunes a Sábado',
+        shortLabel: 'Lun–Sáb',
+        dayIndices: [1, 2, 3, 4, 5, 6],
         ranges: [
-          { from: '09:30', to: '13:00' },
-          { from: '16:30', to: '20:00' },
+          { from: '09:00', to: '17:00' },
         ],
-      },
-      {
-        label: 'Sábados',
-        shortLabel: 'Sábados',
-        dayIndices: [6],
-        ranges: [{ from: '10:00', to: '13:00' }],
       },
     ],
     closedDaysLabel: 'Domingos y Feriados',
   },
 
   // Google Maps Embed
-  googleMapsEmbedUrl: 'https://www.google.com/maps?q=Av.+Corrientes+4500,+Villa+Crespo,+CABA&output=embed',
+  googleMapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3278.920344001602!2d-58.60592532443046!3d-34.73240217290836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc5c2671e5769%3A0x5cfac72833efc81!2sVeterinaria%20Baigorria!5e0!3m2!1ses-419!2sar!4v1786833421981!5m2!1ses-419!2sar',
 
-  // Coordenadas geográficas (centro de Buenos Aires aprox.)
+  // Coordenadas geográficas
   geo: {
-    lat: -34.6037,
-    lng: -58.3816,
+    lat: -34.7324022,
+    lng: -58.6033504,
   },
 
   // Google Place ID
-  googlePlaceId: 'PLACEHOLDER_PLACE_ID',
+  googlePlaceId: 'ChIJaVceZ8LFvJURgfw-g3KszwU',
 
   // SEO / Schema.org
   seo: {
     schemaType: 'VeterinaryCare',
-    defaultTitle: 'Veterinaria Modelo | Villa Crespo | 18 Especialidades',
-    homeTitle: 'Veterinaria Modelo en Villa Crespo | Atención Clínica y 18 Especialidades',
+    defaultTitle: 'Veterinaria Baigorria | Gregorio de Laferrere | Atención Clínica y Especialidades',
+    homeTitle: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires | Atención Clínica y Especialidades',
     defaultSection: 'Veterinaria',
-    defaultTags: ['veterinaria', 'clínica veterinaria', 'especialidades médicas', 'Villa Crespo', 'CABA', 'Buenos Aires', 'mascotas', 'perros', 'gatos', 'animales no tradicionales'],
-    author: 'Veterinaria Modelo',
-    businessName: 'Veterinaria Modelo',
-    alternateName: 'Modelo Veterinaria',
-    description: 'Veterinaria Modelo en Villa Crespo, CABA. Atención clínica de perros, gatos y animales no tradicionales. 18 especialidades médicas. ¡Pedí turno por WhatsApp!',
+    defaultTags: ['veterinaria', 'clínica veterinaria', 'especialidades médicas', 'Gregorio de Laferrere', 'Buenos Aires', 'Argentina', 'mascotas', 'perros', 'gatos', 'animales no tradicionales'],
+    author: 'Veterinaria Baigorria',
+    businessName: 'Veterinaria Baigorria',
+    alternateName: 'Baigorria Veterinaria',
+    description: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires. Atención clínica de perros, gatos y animales no tradicionales. Especialidades médicas. ¡Pedí turno por WhatsApp!',
     priceRange: '$$',
     currenciesAccepted: 'ARS',
     paymentAccepted: 'Cash, Credit Card, Debit Card, Transfer',
     areaServedRadius: '15000', // metros
     serviceType: [
-      'Atención clínica de perros y gatos',
-      'Atención clínica de animales no tradicionales',
-      'Plan vacunal',
-      'Certificado de salud',
-      'Control antirrábico',
-      'Colocación de microchip',
-      'Análisis de laboratorio',
+      'Clínica general',
       'Ecografías',
-      'Cardiología',
-      'Nutrición',
-      'Endocrinología',
-      'Oftalmología',
-      'Dermatología',
+      'Castraciones',
       'Gastroenterología',
+      'Cardiología',
       'Etología',
-      'Traumatología',
       'Cirugías',
-      'Kinesiología',
     ],
   },
 
   // Meta tags geo
   geoTags: {
-    region: 'AR-C',
-    placename: 'Villa Crespo, Ciudad Autónoma de Buenos Aires, Argentina',
-    position: '-34.6037;-58.3816',
-    icbm: '-34.6037, -58.3816',
+    region: 'AR-B',
+    placename: 'La Ferrere, Gregorio de Laferrere, Buenos Aires, Argentina',
+    position: '-34.7324022;-58.6033504',
+    icbm: '-34.7324022, -58.6033504',
   },
 
   // Open Graph address
   ogAddress: {
-    phoneNumber: '5491155551234',
-    streetAddress: 'Av. Corrientes 4500',
-    locality: 'Villa Crespo',
-    region: 'Ciudad Autónoma de Buenos Aires',
+    phoneNumber: '5491135990190',
+    streetAddress: 'Estanislao del Campo 4239',
+    locality: 'La Ferrere',
+    region: 'Buenos Aires',
     postalCode: '',
     countryName: 'Argentina',
   },
 
   // PWA manifest (editable por cliente)
   manifest: {
-    name: 'Veterinaria Modelo',
-    shortName: 'Modelo Vet',
-    description: 'Veterinaria Modelo en Villa Crespo, CABA. Atención clínica de perros, gatos y animales no tradicionales. 18 especialidades médicas.',
+    name: 'Veterinaria Baigorria',
+    shortName: 'Baigorria Vet',
+    description: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires. Atención clínica de perros, gatos y animales no tradicionales. Especialidades médicas.',
     categories: ['medical', 'lifestyle'],
     themeColor: '#1a5230',
     backgroundColor: '#ffffff',
