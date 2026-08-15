@@ -1,0 +1,231 @@
+---
+import '../styles/global.css';
+// Base layout with full SEO
+import { business } from '../config/business';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  section?: string;
+  tags?: string[];
+}
+
+const {
+  title = business.seo.defaultTitle,
+  description = business.seo.description,
+  image = 'og-image.jpg',
+  url,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  author = business.seo.author,
+  section = business.seo.defaultSection,
+  tags = business.seo.defaultTags,
+} = Astro.props;
+
+const configuredSiteUrl = business.site.siteUrl.endsWith('/') ? business.site.siteUrl : `${business.site.siteUrl}/`;
+const siteUrl = (Astro.site?.toString() || configuredSiteUrl).replace(/\/+$/, '') + '/';
+const cleanImage = image.replace(/^\/+/, '');
+const ogImage = siteUrl + cleanImage;
+const pageUrl = new URL(Astro.url.pathname, Astro.site || configuredSiteUrl).toString();
+const canonicalUrl = url || pageUrl;
+const businessName = business.seo.businessName;
+const schemaDayMap = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const openingHoursSpecification = business.hours.schedule.flatMap((slot) =>
+  slot.ranges.map((range) => ({
+    '@type': 'OpeningHoursSpecification',
+    name: slot.label,
+    dayOfWeek: slot.dayIndices.map((dayIndex) => schemaDayMap[dayIndex]),
+    opens: range.from,
+    closes: range.to,
+  }))
+);
+---
+
+<!doctype html>
+<html lang={business.site.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" sizes="32x32" href={import.meta.env.BASE_URL + 'favicon-32x32.png'} />
+    <link rel="icon" type="image/png" sizes="16x16" href={import.meta.env.BASE_URL + 'favicon-16x16.png'} />
+    <link rel="icon" href={import.meta.env.BASE_URL + 'favicon.ico'} />
+    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'apple-touch-icon.png'} />
+    <link rel="manifest" href={import.meta.env.BASE_URL + 'manifest.json'} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={tags.join(', ')} />
+    <meta name="author" content={author} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Geo Tags for Local SEO -->
+    <meta name="geo.region" content={business.geoTags.region} />
+    <meta name="geo.placename" content={business.geoTags.placename} />
+    <meta name="geo.position" content={business.geoTags.position} />
+    <meta name="ICBM" content={business.geoTags.icbm} />
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={businessName} />
+    <meta property="og:site_name" content={businessName} />
+    <meta property="og:locale" content="es_AR" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {author && <meta property="article:author" content={author} />}
+    {section && <meta property="article:section" content={section} />}
+    {tags.map(tag => <meta property="article:tag" content={tag} />)}
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={pageUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={businessName} />
+    
+    <!-- WhatsApp Specific -->
+    <meta property="og:phone_number" content={business.ogAddress.phoneNumber} />
+    <meta property="og:street_address" content={business.ogAddress.streetAddress} />
+    <meta property="og:locality" content={business.ogAddress.locality} />
+    <meta property="og:region" content={business.ogAddress.region} />
+    <meta property="og:postal_code" content={business.ogAddress.postalCode} />
+    <meta property="og:country_name" content={business.ogAddress.countryName} />
+    
+    <!-- JSON-LD Structured Data: LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": business.seo.schemaType,
+      "name": business.seo.businessName,
+      "alternateName": business.seo.alternateName,
+      "description": business.seo.description,
+      "url": siteUrl,
+      "logo": `${siteUrl}images/logo.png`,
+      "image": ogImage,
+      "telephone": business.phoneFormatted,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": business.address.streetAddress,
+        "addressLocality": business.address.addressLocality,
+        "addressRegion": business.address.addressRegion,
+        "postalCode": "",
+        "addressCountry": business.address.countryCode
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": business.geo.lat,
+        "longitude": business.geo.lng
+      },
+      "openingHoursSpecification": openingHoursSpecification,
+      "priceRange": business.seo.priceRange,
+      "currenciesAccepted": business.seo.currenciesAccepted,
+      "paymentAccepted": business.seo.paymentAccepted,
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": business.geo.lat,
+          "longitude": business.geo.lng
+        },
+        "geoRadius": business.seo.areaServedRadius
+      },
+      "serviceType": business.seo.serviceType,
+      "sameAs": [
+        business.whatsappUrl,
+        business.instagramUrl
+      ],
+      "hasMap": business.googleMapsPlaceUrl
+    })} />
+    
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": business.seo.businessName,
+      "url": siteUrl,
+      "logo": `${siteUrl}images/logo.png`,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": business.phoneFormatted,
+        "contactType": "customer service",
+        "availableLanguage": ["Spanish"],
+        "areaServed": "AR"
+      },
+      "sameAs": [
+        business.whatsappUrl,
+        business.instagramUrl
+      ]
+    })} />
+    
+    <!-- JSON-LD: WebSite with SearchAction -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": siteUrl,
+      "name": business.seo.businessName,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${siteUrl}search?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    })} />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://wa.me" />
+    <link rel="dns-prefetch" href="https://www.google.com" />
+    
+    <!-- Fonts -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    
+  </head>
+  <body class="font-sans text-gray-900 antialiased bg-white">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 btn-primary">Saltar al contenido principal</a>
+    
+    <!-- Header slot -->
+    <slot name="header" />
+    
+    <!-- Main content landmark -->
+    <main id="main-content" class="min-h-screen">
+      <slot name="main" />
+    </main>
+    
+    <!-- Footer slot -->
+    <slot name="footer" />
+  </body>
+</html>
+
+<style>
+  /* Ensure smooth scrolling works with fixed header */
+  html {
+    scroll-padding-top: 5rem;
+  }
+  
+  @media (max-width: 768px) {
+    html {
+      scroll-padding-top: 4rem;
+    }
+  }
+</style>

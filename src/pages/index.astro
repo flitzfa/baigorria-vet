@@ -1,0 +1,28 @@
+---
+// Main page
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import HoursLocation from '../components/HoursLocation.astro';
+import Footer from '../components/Footer.astro';
+import { business } from '../config/business';
+---
+
+<Layout
+  title={business.seo.homeTitle}
+  description={business.seo.description}
+  image="/og-image.jpg"
+  url={business.site.siteUrl}
+  type="website"
+>
+  <Header slot="header" />
+  
+  <div slot="main" class="min-h-screen">
+    <Hero />
+    <Services />
+    <HoursLocation />
+  </div>
+  
+  <Footer slot="footer" />
+</Layout>

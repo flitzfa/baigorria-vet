@@ -1,0 +1,51 @@
+[
+  {
+    "id": "shampoo-neutro",
+    "name": "Shampoo Neutro Hipoalergénico 500ml",
+    "price": 8900,
+    "category": "Higiene y Estética",
+    "image": "/images/products/shampoo-neutro.png",
+    "description": "Shampoo suave sin fragancias ni colorantes, ideal para pieles sensibles y cachorros.",
+    "badge": "Más Vendido"
+  },
+  {
+    "id": "correa-reflectiva",
+    "name": "Correa Reflectiva Ajustable 1.5m",
+    "price": 12500,
+    "category": "Paseo y Control",
+    "description": "Correa de nylon resistente con costuras reflectivas para paseos nocturnos seguros.",
+    "badge": "Destacado",
+    "images": [
+      { "src": "/images/products/correa-reflectiva-negro.png", "label": "Negro" },
+      { "src": "/images/products/correa-reflectiva-rojo.png", "label": "Rojo" },
+      { "src": "/images/products/correa-reflectiva-azul.png", "label": "Azul" }
+    ]
+  },
+  {
+    "id": "cepillo-deslanador",
+    "name": "Cepillo Deslanador Doble Cara",
+    "price": 7200,
+    "category": "Higiene",
+    "image": "/images/products/cepillo-deslanador.png",
+    "description": "Cepillo profesional de acero inoxidable para remover pelo muerto y subpelo sin dañar la piel.",
+    "badge": "Profesional"
+  },
+  {
+    "id": "placa-id-qr",
+    "name": "Placa Identificatoria con Código QR",
+    "price": 4500,
+    "category": "Accesorios",
+    "image": "/images/products/placa-id-qr.png",
+    "description": "Placa de acero inoxidable grabada con QR que vincula a ficha digital de tu mascota.",
+    "badge": "Seguridad"
+  },
+  {
+    "id": "pelota-dispensadora",
+    "name": "Pelota Dispensadora de Premios",
+    "price": 9800,
+    "category": "Juguetes",
+    "image": "/images/products/pelota-dispensadora.png",
+    "description": "Juguete interactivo de goma natural que libera premios mientras tu mascota juega y se ejercita.",
+    "badge": "Interactivo"
+  }
+]

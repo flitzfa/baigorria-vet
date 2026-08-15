@@ -1,0 +1,138 @@
+---
+// Hours & Location section
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
+import InstagramIcon from './icons/InstagramIcon.astro';
+import { business } from '../config/business';
+
+const formatRange = (range: { from: string; to: string }) => `${range.from}-${range.to}`;
+---
+
+<section id="horarios" class="section bg-white">
+  <div class="container-main">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="badge-primary mb-4 inline-block">{business.sections.location.badge}</span>
+      <h2 class="mb-4 text-balance">{business.sections.location.title}</h2>
+      <p class="text-lg text-gray-600 text-balance">{business.sections.location.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <!-- Horarios -->
+      <div class="space-y-6">
+        <h3 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-brand flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          {business.sections.location.hoursTitle}
+        </h3>
+
+        <!-- Clínica Veterinaria - Horario único -->
+        <div class="card p-6 md:p-7">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-brand-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <h4 class="font-semibold text-gray-900">{business.sections.location.hoursCardTitle}</h4>
+          </div>
+          <dl class="space-y-3 text-gray-600">
+            {business.hours.schedule.map((slot) => (
+              <div class="flex justify-between py-2 border-b border-brand-100">
+                <dt class="font-medium">{slot.label}</dt>
+                <dd class="text-brand-purple font-semibold leading-relaxed">
+                  {slot.ranges.map((range, index) => (
+                    <span class="block">{formatRange(range)}{index === slot.ranges.length - 1 ? ' hs' : ''}</span>
+                  ))}
+                </dd>
+              </div>
+            ))}
+            <div class="flex justify-between py-2">
+              <dt class="font-medium">{business.hours.closedDaysLabel}</dt>
+              <dd class="text-gray-400">Cerrado</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Ubicación y Mapa -->
+      <div id="ubicacion" class="space-y-6">
+        <h3 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-purple to-brand-violet flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          {business.sections.location.whereToFindUsTitle}
+        </h3>
+
+        <!-- Address Card -->
+        <div class="card p-6 md:p-7">
+          <address class="not-italic space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-brand-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900">Dirección</p>
+                <p class="text-gray-600">{business.address.withCrossStreet}</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center flex-shrink-0">
+                <WhatsAppIcon class="w-5 h-5 text-brand-violet" />
+              </div>
+              <div>
+                <p class="font-medium text-gray-900">WhatsApp</p>
+                <a href={business.whatsappUrl} target="_blank" rel="noopener noreferrer" class="text-brand-violet hover:text-brand-purple font-medium">{business.phoneFormatted}</a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center flex-shrink-0">
+                <InstagramIcon class="w-5 h-5 text-brand-violet" />
+              </div>
+              <div>
+                <p class="font-medium text-gray-900">Instagram</p>
+                <a href={business.instagramUrl} target="_blank" rel="noopener noreferrer" class="text-brand-violet hover:text-brand-purple font-medium">@{business.instagram}</a>
+              </div>
+            </div>
+          </address>
+        </div>
+
+        <!-- Map Embed -->
+        <div class="card overflow-hidden">
+          <iframe 
+            src={business.googleMapsEmbedUrl}
+            width="100%" 
+            height="300" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación {business.fullName} - {business.address.street}, {business.address.city}"
+            aria-label="Mapa de ubicación de {business.fullName}">
+          </iframe>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="w-full">
+          <a href={business.googleMapsUrl} 
+             target="_blank" rel="noopener noreferrer"
+             class="btn-primary w-full justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            </svg>
+            {business.sections.location.mapsButtonLabel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,275 @@
+---
+// === CONTENIDO DE EJEMPLO - REEMPLAZAR POR CLIENTE ===
+// Copys, claims comerciales y decoraciones visuales (huellitas/fondos).
+// === MOTOR - NO TOCAR SALVO CAMBIO DE LÓGICA ===
+// Badge de estado "Abierto ahora" alimentado por business.hours.schedule.
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
+import { business } from '../config/business';
+import logo from '../assets/images/logo.png';
+import { Image } from 'astro:assets';
+
+const heroScheduleJson = JSON.stringify(business.hours.schedule);
+---
+
+<section id="inicio" class="relative min-h-screen flex items-center justify-center pt-20 md:pt-24 bg-gradient-brand-hero overflow-hidden isolate">
+  <!-- Background decorative elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div class="absolute top-1/4 left-1/4 w-80 h-80 bg-brand-violet/10 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-brand-purple/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-gradient-to-r from-brand-violet/5 to-brand-purple/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Floating paw prints decoration -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <svg class="absolute top-20 left-10 w-12 h-12 text-brand-200 animate-float" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 10c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+    </svg>
+    <svg class="absolute bottom-20 right-10 w-16 h-16 text-brand-200 animate-float" style="animation-delay: 1.5s;" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 10c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+    </svg>
+    <svg class="absolute top-1/3 right-1/4 w-8 h-8 text-brand-200 animate-float" style="animation-delay: 0.5s;" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 10c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+    </svg>
+  </div>
+
+  <div class="container-main relative z-10 pt-6 pb-14 md:pt-10 md:pb-20 lg:pt-14 lg:pb-28">
+    <div class="max-w-5xl mx-auto text-center">
+      <!-- Logo grande -->
+      <Image src={logo} alt={business.branding.logoAlt} class="h-28 sm:h-32 md:h-36 w-auto object-contain mx-auto mb-6 animate-fade-in rounded-2xl" />
+      
+      <!-- Badge - UNA SOLA LÍNEA DINÁMICA CON ESTADO ACTUAL -->
+      <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-brand-200 shadow-card mb-7 animate-fade-in">
+        <span class="flex items-center gap-2 text-sm text-gray-700" id="hero-status-badge">
+          <span id="hero-status-dot" class="relative flex h-2.5 w-2.5 flex-shrink-0">
+            <span id="hero-status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 hidden"></span>
+            <span id="hero-status-dot-inner" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-gray-400"></span>
+          </span>
+          <span id="hero-status-text">Calculando estado...</span>
+        </span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="mx-auto max-w-4xl text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-display font-bold text-gray-900 leading-[1.06] text-balance mb-6 animate-slide-up">
+        {business.hero.headlineTop}
+        <br />
+        <span class="text-gradient">{business.tagline}</span>
+        <br />
+        <span class="block text-lg sm:text-xl lg:text-2xl font-medium text-gray-600 mt-2">{business.hero.locationLine}</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mx-auto max-w-3xl text-lg md:text-xl lg:text-2xl text-gray-600 mb-10 leading-relaxed text-balance animate-slide-up" style="animation-delay: 0.1s;">
+        {business.hero.subtitle}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
+        <a href="#servicios" class="btn-primary w-full sm:w-auto">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+          {business.hero.primaryCtaLabel}
+        </a>
+        <a href={business.whatsappUrl + '?text=' + encodeURIComponent(business.whatsappMessages.general)} 
+           target="_blank" rel="noopener noreferrer"
+           class="btn-whatsapp w-full sm:w-auto">
+          <WhatsAppIcon class="w-5 h-5" />
+          {business.hero.secondaryCtaLabel}
+        </a>
+      </div>
+
+      <!-- Trust indicators -->
+      <div class="mt-8 md:mt-14 hidden md:grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 text-sm text-gray-600 animate-fade-in" style="animation-delay: 0.4s;">
+        {business.hero.trustItems.map((item) => (
+          <div class="flex items-center gap-3 rounded-2xl bg-white/75 backdrop-blur-sm border border-brand-100 px-4 py-3 shadow-card">
+            <svg class="w-5 h-5 text-brand-violet" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block" aria-hidden="true">
+    <svg class="w-6 h-6 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+    </svg>
+  </div>
+</section>
+
+<script id="hero-hours-schedule" type="application/json" set:html={heroScheduleJson}></script>
+
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-slide-down,
+    .animate-scale-in {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Calcular estado de apertura en zona horaria America/Argentina/Buenos_Aires
+  function parseSchedule() {
+    const scheduleElement = document.getElementById('hero-hours-schedule');
+    if (!scheduleElement?.textContent) {
+      return [];
+    }
+
+    try {
+      return JSON.parse(scheduleElement.textContent);
+    } catch {
+      return [];
+    }
+  }
+
+  function toMinutes(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
+
+  function getNextOpening(schedule, dayIndex, currentMinutes) {
+    const dayLabels = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+
+    const todayRanges = schedule
+      .filter((slot) => slot.dayIndices.includes(dayIndex))
+      .flatMap((slot) => slot.ranges)
+      .sort((a, b) => toMinutes(a.from) - toMinutes(b.from));
+
+    const nextTodayRange = todayRanges.find((range) => toMinutes(range.from) > currentMinutes);
+    if (nextTodayRange) {
+      return { nextOpenDay: 'hoy', nextOpenTime: nextTodayRange.from };
+    }
+
+    for (let offset = 1; offset <= 7; offset += 1) {
+      const targetDayIndex = (dayIndex + offset) % 7;
+      const targetRanges = schedule
+        .filter((slot) => slot.dayIndices.includes(targetDayIndex))
+        .flatMap((slot) => slot.ranges)
+        .sort((a, b) => toMinutes(a.from) - toMinutes(b.from));
+
+      if (targetRanges.length > 0) {
+        let nextOpenDay = `el ${dayLabels[targetDayIndex]}`;
+        if (offset === 1 && !(dayIndex === 0 && targetDayIndex === 1)) {
+          nextOpenDay = 'mañana';
+        }
+        return { nextOpenDay, nextOpenTime: targetRanges[0].from };
+      }
+    }
+
+    return { nextOpenDay: '', nextOpenTime: '' };
+  }
+
+  function updateOpenStatus() {
+    const schedule = parseSchedule();
+
+    const now = new Date();
+    
+    // Obtener día de la semana y hora en Buenos Aires
+    const formatter = new Intl.DateTimeFormat('es-AR', {
+      timeZone: 'America/Argentina/Buenos_Aires',
+      weekday: 'short', // 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+    
+    const parts = formatter.formatToParts(now);
+    const day = parts.find(p => p.type === 'weekday')?.value;
+    const hour = parseInt(parts.find(p => p.type === 'hour')?.value || '0', 10);
+    const minute = parseInt(parts.find(p => p.type === 'minute')?.value || '0', 10);
+    
+    const currentMinutes = hour * 60 + minute;
+    
+    // Mapear días cortos en español a índices (0 = domingo, 1 = lunes, etc.)
+    const dayMap = {
+      'dom': 0, 'lun': 1, 'mar': 2, 'mie': 3, 'jue': 4, 'vie': 5, 'sab': 6
+    };
+    const normalizedDay = day?.toLowerCase().replace('é', 'e').replace('á', 'a').replace('ó', 'o');
+    const dayIndex = dayMap[normalizedDay] ?? -1;
+
+    // Verificar si está abierto AHORA usando schedule dinámico
+    const todayRanges = schedule
+      .filter((slot) => slot.dayIndices.includes(dayIndex))
+      .flatMap((slot) => slot.ranges);
+    const activeRange = todayRanges.find((range) => {
+      const openAt = toMinutes(range.from);
+      const closeAt = toMinutes(range.to);
+      return currentMinutes >= openAt && currentMinutes < closeAt;
+    });
+
+    const isOpen = Boolean(activeRange);
+    let nextOpenDay = '';
+    let nextOpenTime = '';
+
+    if (!isOpen) {
+      const nextOpening = getNextOpening(schedule, dayIndex, currentMinutes);
+      nextOpenDay = nextOpening.nextOpenDay;
+      nextOpenTime = nextOpening.nextOpenTime;
+    }
+    
+    // Construir texto del badge
+    let statusText = '';
+    if (isOpen) {
+      const closesAt = activeRange?.to ?? '';
+      statusText = `Abierto ahora · Cierra a las ${closesAt}`;
+    } else {
+      statusText = `Cerrado ahora · Abre ${nextOpenDay} a las ${nextOpenTime}`;
+    }
+    
+    // Actualizar UI del badge único
+    const heroStatusPing = document.getElementById('hero-status-ping');
+    const heroStatusDotInner = document.getElementById('hero-status-dot-inner');
+    const heroStatusText = document.getElementById('hero-status-text');
+    
+    if (heroStatusPing && heroStatusDotInner && heroStatusText) {
+      if (isOpen) {
+        heroStatusPing.classList.remove('hidden');
+        heroStatusDotInner.style.backgroundColor = '#22c55e'; // green-500
+      } else {
+        heroStatusPing.classList.add('hidden');
+        heroStatusDotInner.style.backgroundColor = '#9ca3af'; // gray-400
+      }
+      heroStatusText.textContent = statusText;
+    }
+  }
+  
+  // Ejecutar al cargar y actualizar cada minuto
+  updateOpenStatus();
+  setInterval(updateOpenStatus, 60000);
+</script>

@@ -1,0 +1,144 @@
+---
+// === CONTENIDO DE EJEMPLO - REEMPLAZAR POR CLIENTE ===
+// Copys, nombres de servicios y este iconMap inicial (ejemplo veterinaria).
+// === MOTOR - NO TOCAR SALVO CAMBIO DE LÓGICA ===
+// Render dinámico de íconos Lucide, fallback y estructura reusable de tarjetas/chips.
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
+import { business } from '../config/business';
+import fs from 'fs';
+import path from 'path';
+
+// Mapeo de especialidad → archivo de ícono en lucide-static (sin .svg)
+const iconMap: Record<string, string> = {
+  'dog-cat': 'paw-print',           // Atención clínica de perros y gatos
+  'exotic': 'feather',              // Atención clínica de animales no tradicionales
+  'vaccine': 'syringe',             // Plan vacunal
+  'certificate': 'badge-check',     // Certificado de salud
+  'rabies': 'shield-check',         // Control antirrábico
+  'microchip': 'cpu',               // Colocación de microchip
+  'lab': 'flask-conical',           // Análisis de laboratorio
+  'ultrasound': 'radar',            // Ecografías (radar = ondas/escaneo)
+  'cardio': 'heart-pulse',          // Cardiología
+  'nutrition': 'apple',             // Nutrición
+  'endocrine': 'activity',          // Endocrinología (activity = gráfico de actividad/metabolismo)
+  'eye': 'eye',                     // Oftalmología (ya existía, perfecto)
+  'skin': 'bandage',                // Dermatología (bandage = curita/venda, mejor que sparkles)
+  'stomach': 'soup',                // Gastroenterología (soup = tazón, representa digestión)
+  'behavior': 'brain',              // Etología
+  'trauma': 'bone',                 // Traumatología
+  'surgery': 'scissors',            // Cirugías
+  'physio': 'activity',             // Kinesiología (activity = movimiento/ejercicio)
+};
+
+// Cache para los SVGs leídos
+const iconCache: Record<string, string> = {};
+
+function getIcon(type: string): string {
+  // Si ya está en cache, devolverlo
+  if (iconCache[type]) {
+    return iconCache[type];
+  }
+
+  const lucideName = iconMap[type] || 'paw-print';
+  const iconPath = path.resolve(`node_modules/lucide-static/icons/${lucideName}.svg`);
+
+  try {
+    let svgContent = fs.readFileSync(iconPath, 'utf-8');
+
+    // Ajustar el SVG: asegurar class, stroke-width, aria-hidden y colores
+    // Los SVGs de lucide vienen con stroke-width="2", lo cambiamos a 1.5 para consistencia
+    // También reemplazamos cualquier stroke/fill hardcodeado por currentColor para que herede text-white del contenedor
+    svgContent = svgContent
+      .replace(/<svg /, '<svg class="w-8 h-8" ') // quitamos text-white del SVG, lo pondremos en el contenedor
+      .replace(/stroke-width="2"/g, 'stroke-width="1.5"')
+      .replace(/stroke-width="1.5"/g, 'stroke-width="1.5"') // idempotente
+      .replace(/stroke="#[^"]*"/g, 'stroke="currentColor"') // reemplazar stroke hardcodeado
+      .replace(/fill="#[^"]*"/g, 'fill="currentColor"') // reemplazar fill hardcodeado
+      .replace(/stroke="[^"]*"/g, (match) => match.includes('currentColor') ? match : 'stroke="currentColor"') // asegurar stroke=currentColor
+      .replace(/fill="[^"]*"/g, (match) => match.includes('currentColor') || match.includes('none') ? match : 'fill="currentColor"'); // asegurar fill=currentColor salvo none
+
+    // Agregar aria-hidden si no existe
+    if (!svgContent.includes('aria-hidden')) {
+      svgContent = svgContent.replace('<svg ', '<svg aria-hidden="true" ');
+    }
+
+    iconCache[type] = svgContent;
+    return svgContent;
+  } catch (error) {
+    console.warn(`Icon not found: ${lucideName}, falling back to paw-print`);
+    // Fallback a paw-print
+    const fallbackPath = path.resolve('node_modules/lucide-static/icons/paw-print.svg');
+    let fallbackSvg = fs.readFileSync(fallbackPath, 'utf-8');
+    fallbackSvg = fallbackSvg
+      .replace(/<svg /, '<svg class="w-8 h-8" ')
+      .replace(/stroke-width="2"/g, 'stroke-width="1.5"')
+      .replace(/stroke="#[^"]*"/g, 'stroke="currentColor"')
+      .replace(/fill="#[^"]*"/g, 'fill="currentColor"')
+      .replace(/stroke="[^"]*"/g, (match) => match.includes('currentColor') ? match : 'stroke="currentColor"')
+      .replace(/fill="[^"]*"/g, (match) => match.includes('currentColor') || match.includes('none') ? match : 'fill="currentColor"');
+    if (!fallbackSvg.includes('aria-hidden')) {
+      fallbackSvg = fallbackSvg.replace('<svg ', '<svg aria-hidden="true" ');
+    }
+    iconCache[type] = fallbackSvg;
+    return fallbackSvg;
+  }
+}
+
+const atencionGeneral = business.servicesCatalog.general;
+const especialidadesMedicas = business.servicesCatalog.specialties;
+---
+
+<section id="servicios" class="section bg-white">
+  <div class="container-main">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="badge-primary mb-4 inline-block">{business.sections.services.badge}</span>
+      <h2 class="mb-4 text-balance">{business.sections.services.title}</h2>
+      <p class="text-lg text-gray-600 text-balance">{business.sections.services.subtitle}</p>
+    </div>
+
+    <!-- GRUPO 1: Atención General -->
+    <div class="mb-16">
+      <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">{business.sections.services.generalTitle}</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {atencionGeneral.map((specialty) => (
+          <article class="card-hover-lift group p-6 md:p-8 text-center h-full flex flex-col">
+            <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-brand-primary shadow-[0_10px_30px_-10px_rgba(26,82,48,0.4)] flex items-center justify-center group-hover:scale-105 transition-transform duration-300 text-white" set:html={getIcon(specialty.icon)} />
+            <h4 class="text-lg font-bold text-gray-900 mb-4 leading-snug text-balance">{specialty.name}</h4>
+            <a href={business.whatsappUrl + '?text=' + encodeURIComponent(business.whatsappMessages.consultarServicio(specialty.name))} 
+               target="_blank" rel="noopener noreferrer"
+               class="btn-secondary w-full mt-auto text-sm py-2.5">
+              <WhatsAppIcon class="w-4 h-4 inline-block ml-1.5 -mt-0.5" />
+              {business.sections.services.specialtyButtonLabel}
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <!-- GRUPO 2: Especialidades Médicas -->
+    <div>
+      <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">{business.sections.services.specialtiesTitle}</h3>
+      
+      <!-- Grid denso de chips -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
+        {especialidadesMedicas.map((specialty) => (
+          <div class="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white hover:bg-brand-50 transition-colors duration-200 border border-brand-100 hover:border-brand-200 min-w-0">
+            <span class="w-8 h-8 flex-shrink-0 rounded-lg bg-brand-100 group-hover:bg-brand-200 transition-colors duration-200 flex items-center justify-center text-brand-700" set:html={getIcon(specialty.icon).replace('w-8 h-8', 'w-5 h-5')} />
+            <span class="font-medium text-gray-900 text-sm leading-snug truncate min-w-0">{specialty.name}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA único centrado para especialidades médicas -->
+      <div class="text-center">
+        <a href={business.whatsappUrl + '?text=' + encodeURIComponent(business.whatsappMessages.consultarServicios)} 
+           target="_blank" rel="noopener noreferrer"
+           class="btn-primary inline-flex items-center gap-2 px-8 py-4 text-base font-semibold">
+          <WhatsAppIcon class="w-5 h-5" />
+          {business.sections.services.specialtiesCtaLabel}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

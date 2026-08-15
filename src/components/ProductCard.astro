@@ -1,0 +1,181 @@
+---
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
+import { business } from '../config/business';
+
+interface ProductImage {
+  src: string;
+  label: string;
+}
+
+interface Props {
+  product: {
+    id: string;
+    name: string;
+    price: number;
+    description: string;
+    category: string;
+    image?: string;
+    images?: ProductImage[];
+    badge?: string;
+  };
+}
+
+const { product } = Astro.props;
+
+const images = product.images ?? [];
+const hasVariants = images.length > 0;
+const mainImage = hasVariants ? images[0].src : product.image ?? '';
+const initialColorLabel = hasVariants ? images[0].label : null;
+
+// Helper para resolver rutas de /public con BASE_URL
+const resolveImage = (src: string) => import.meta.env.BASE_URL + src.replace(/^\//, '');
+
+// Generar enlace de WhatsApp con mensaje prellenado
+const baseWhatsappMessage = business.whatsappMessages.consultarProducto(product.name);
+const initialWhatsappMessage = hasVariants && initialColorLabel
+  ? business.whatsappMessages.consultarProductoColor(product.name, initialColorLabel)
+  : baseWhatsappMessage;
+const initialWhatsappUrl = `${business.whatsappUrl}?text=${encodeURIComponent(initialWhatsappMessage)}`;
+
+// Formatear precio a pesos argentinos
+const formattedPrice = `$${product.price.toLocaleString('es-AR')}`;
+---
+
+<article 
+  class="card-hover-lift group relative overflow-hidden h-full flex flex-col" 
+  data-product-id={product.id}
+  data-product-name={product.name}
+  data-formatted-price={formattedPrice}
+  data-base-whatsapp-message={business.whatsappMessages.consultarProducto(product.name)}
+  data-whatsapp-url={business.whatsappUrl}
+  data-images={hasVariants ? JSON.stringify(product.images) : ''}
+  data-base-url={import.meta.env.BASE_URL}
+>
+  <!-- Product Image -->
+  <div class="aspect-square relative bg-purple-50/50 overflow-hidden">
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+      <img 
+        id={`product-img-${product.id}`}
+        src={resolveImage(mainImage)} 
+        alt={product.name}
+        class="w-full h-full object-contain"
+        loading="lazy"
+      />
+    </div>
+    
+    <!-- Badge -->
+    {product.badge && (
+      <span class="absolute top-3 left-3 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-brand-purple shadow-sm border border-white/70">
+        {product.badge}
+      </span>
+    )}
+  </div>
+
+  <!-- Product Info -->
+  <div class="p-6 flex flex-1 flex-col">
+    <h3 class="font-display font-semibold text-lg text-gray-900 mb-2 line-clamp-2 text-balance group-hover:text-brand-violet group-focus-within:text-gray-900 transition-colors">
+      {product.name}
+    </h3>
+    
+    <!-- Color Swatches (only for products with variants) -->
+    {hasVariants && (
+      <div class="flex items-center gap-2 mb-3" role="group" aria-label="Seleccionar color">
+        {product.images!.map((img, index) => (
+          <button
+            type="button"
+            class="swatch-btn px-3 py-1.5 text-xs font-medium rounded-full border-2 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-brand-violet focus:ring-offset-2"
+            data-color-index={index}
+            data-color-label={img.label}
+            data-color-src={img.src}
+            aria-label={`Ver en ${img.label}`}
+            aria-pressed={index === 0}
+            style={index === 0 ? 'background-color: var(--color-brand-purple); border-color: var(--color-brand-purple); color: white;' : 'background-color: white; border-color: var(--color-brand-purple); color: var(--color-brand-purple);'}
+          >
+            {img.label}
+          </button>
+        ))}
+      </div>
+    )}
+    
+    <p class="text-sm text-gray-500 mb-4 line-clamp-3 min-h-[4.75rem] leading-relaxed">
+      {product.description}
+    </p>
+    
+    <div class="flex flex-col gap-3 pt-4 border-t border-athena-100 mt-auto">
+      <span class="text-xl font-bold text-brand-purple tabular-nums">
+        {formattedPrice}
+      </span>
+      
+      <a 
+        id={`whatsapp-link-${product.id}`}
+        href={initialWhatsappUrl} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl w-full py-3 text-center transition-colors"
+        aria-label={`Consultar por ${product.name}${hasVariants && initialColorLabel ? ` (Color: ${initialColorLabel})` : ''} por WhatsApp - ${formattedPrice}`}>
+        Consultar
+        <WhatsAppIcon class="w-5 h-5 inline-block ml-2 -mt-0.5" />
+      </a>
+    </div>
+  </div>
+
+  <script is:inline>
+    // IIFE para aislar scope y evitar colisiones entre múltiples instancias de ProductCard
+    (function() {
+      // Encontrar la card propia usando currentScript (el script está dentro del article)
+      const scriptEl = document.currentScript;
+      if (!scriptEl) return;
+      
+      const card = scriptEl.closest('[data-product-id]');
+      if (!card) return;
+
+      /** @type {NodeListOf<HTMLButtonElement>} */
+      const swatchButtons = card.querySelectorAll('.swatch-btn');
+      /** @type {HTMLImageElement | null} */
+      const mainImage = card.querySelector('img[id^="product-img-"]');
+      /** @type {HTMLAnchorElement | null} */
+      const whatsappLink = card.querySelector('a[id^="whatsapp-link-"]');
+      
+      const baseMessage = card.dataset.baseWhatsappMessage;
+      const whatsappUrl = card.dataset.whatsappUrl;
+      const formattedPrice = card.dataset.formattedPrice;
+      const productName = card.dataset.productName;
+      const imagesData = card.dataset.images;
+      const images = imagesData ? JSON.parse(imagesData) : [];
+
+      if (swatchButtons.length > 0 && mainImage && whatsappLink && images.length > 0 && whatsappUrl) {
+        const baseUrl = card.dataset.baseUrl || '';
+        swatchButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const label = btn.dataset.colorLabel;
+            const imgSrc = btn.dataset.colorSrc;
+
+            // Cambiar imagen principal
+            mainImage.src = baseUrl + imgSrc.replace(/^\//, '');
+            mainImage.alt = `${productName} - ${label}`;
+
+            // Actualizar estado visual de swatches
+            swatchButtons.forEach(b => {
+              const isActive = b === btn;
+              b.setAttribute('aria-pressed', isActive.toString());
+              if (isActive) {
+                b.style.backgroundColor = 'var(--color-brand-purple)';
+                b.style.borderColor = 'var(--color-brand-purple)';
+                b.style.color = 'white';
+              } else {
+                b.style.backgroundColor = 'white';
+                b.style.borderColor = 'var(--color-brand-purple)';
+                b.style.color = 'var(--color-brand-purple)';
+              }
+            });
+
+// Actualizar link de WhatsApp con el color seleccionado
+            const newMessage = `${baseMessage} (Color: ${label})`;
+            whatsappLink.href = `${whatsappUrl}?text=${encodeURIComponent(newMessage)}`;
+            whatsappLink.setAttribute('aria-label', `Consultar por ${productName} (Color: ${label}) por WhatsApp - ${formattedPrice}`);
+          });
+        });
+      }
+    })();
+  </script>
+</article>

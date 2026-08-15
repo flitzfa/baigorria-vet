@@ -1,0 +1,99 @@
+---
+// Footer component
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
+import InstagramIcon from './icons/InstagramIcon.astro';
+import { business } from '../config/business';
+import logo from '../assets/images/logo.png';
+import { Image } from 'astro:assets';
+
+type HourRange = { from: string; to: string };
+type HourSlot = { label: string; shortLabel?: string; ranges: ReadonlyArray<HourRange> };
+
+const schedule = business.hours.schedule as ReadonlyArray<HourSlot>;
+const formatRanges = (ranges: ReadonlyArray<HourRange>) => ranges.map((range) => `${range.from}-${range.to}`).join(' / ');
+---
+
+<footer class="bg-slate-950 text-gray-300" role="contentinfo">
+  <div class="container-main py-16 lg:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
+      <!-- Brand Info -->
+      <div class="lg:col-span-1">
+        <a href={import.meta.env.BASE_URL + '#inicio'} class="flex items-center gap-3 mb-6" aria-label={business.fullName + ' - Inicio'}>
+          <Image src={logo} alt={business.branding.logoAlt} class="h-10 w-auto object-contain rounded-2xl" />
+          <span class="font-display font-bold text-xl text-white tracking-tight">{business.name}</span>
+        </a>
+        <p class="text-gray-400 mb-6 leading-relaxed max-w-sm">{business.tagline}. {business.sections.footer.taglineSuffix}</p>
+        <div class="flex items-center gap-3">
+          <a href={business.whatsappUrl} target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-gray-300 hover:bg-green-500/10 hover:text-green-400 transition-colors" aria-label="WhatsApp">
+            <WhatsAppIcon class="w-6 h-6" />
+          </a>
+          <a href={business.instagramUrl} target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-gray-300 hover:bg-brand-violet/10 hover:text-brand-violet transition-colors" aria-label="Instagram">
+            <InstagramIcon class="w-6 h-6" />
+          </a>
+          <a href={business.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-gray-300 hover:bg-brand-violet/10 hover:text-brand-violet transition-colors" aria-label="Google Maps">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Servicios -->
+      <nav class="lg:col-span-1" aria-label="Servicios">
+        <h4 class="font-semibold text-white mb-4 tracking-tight">{business.sections.footer.quickLinksTitle}</h4>
+        <ul class="space-y-3">
+          {business.sections.footer.quickLinks.map((item) => (
+            <li><a href={item.href} class="text-gray-400 hover:text-white transition-colors">{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Información -->
+      <div class="lg:col-span-1" aria-label="Información de contacto">
+        <h4 class="font-semibold text-white mb-4 tracking-tight">{business.sections.footer.contactTitle}</h4>
+        <address class="not-italic space-y-3 text-gray-400">
+          <p>{business.address.withCrossStreet}</p>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            </svg>
+            <a href={business.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Ver en Google Maps</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <WhatsAppIcon class="w-5 h-5 flex-shrink-0 text-green-400" />
+            <a href={business.whatsappUrl} target="_blank" rel="noopener noreferrer" class="hover:text-green-400 transition-colors">{business.phoneFormatted}</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <InstagramIcon class="w-5 h-5 flex-shrink-0" />
+            <a href={business.instagramUrl} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">@{business.instagram}</a>
+          </div>
+        </address>
+      </div>
+
+      <!-- Horarios -->
+      <div class="lg:col-span-1" aria-label="Horarios de atención">
+        <h4 class="font-semibold text-white mb-4 tracking-tight">{business.sections.footer.hoursTitle}</h4>
+        <dl class="space-y-3 text-sm">
+          {schedule.map((slot) => (
+            <div class="flex justify-between border-b border-gray-800 pb-2">
+              <dt class="font-medium text-gray-300">{slot.shortLabel ?? slot.label}</dt>
+              <dd class="text-green-400 font-medium text-sm text-right">{formatRanges(slot.ranges)}</dd>
+            </div>
+          ))}
+          <div class="flex justify-between pb-2">
+            <dt class="font-medium text-gray-300">{business.hours.closedDaysLabel}</dt>
+            <dd class="text-gray-500">Cerrado</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-white/10 pt-8">
+      <p class="text-sm text-gray-500 text-center md:text-left">
+        © 2026 {business.fullName}. Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
