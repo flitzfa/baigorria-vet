@@ -9,8 +9,8 @@
 export const business = {
   // Configuración de sitio/deploy
   site: {
-    siteUrl: 'https://example.com',
-    basePath: '/',
+    siteUrl: 'https://flitzfa.github.io/baigorria-vet',
+    basePath: '/baigorria-vet',
     locale: 'es-AR',
   },
 

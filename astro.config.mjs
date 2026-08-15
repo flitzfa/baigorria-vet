@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-const SITE_URL = process.env.PUBLIC_SITE_URL || 'https://example.com';
-const BASE_PATH = process.env.PUBLIC_BASE_PATH || '/';
+const SITE_URL = process.env.PUBLIC_SITE_URL || 'https://flitzfa.github.io/baigorria-vet';
+const BASE_PATH = process.env.PUBLIC_BASE_PATH || '/baigorria-vet';
 
 // https://astro.build/config 
 export default defineConfig({
