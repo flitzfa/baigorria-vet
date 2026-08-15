@@ -111,7 +111,7 @@ export const business = {
     general: [
       { name: 'Clínica general', icon: 'dog-cat' },
       { name: 'Ecografías', icon: 'ultrasound' },
-      { name: 'Castraciones', icon: 'surgery' },
+      { name: 'Castraciones', icon: 'castration' },
     ],
     specialties: [
       { name: 'Gastroenterología', icon: 'stomach' },
