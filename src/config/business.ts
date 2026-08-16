@@ -17,7 +17,7 @@ export const business = {
   // Nombres
   name: 'Veterinaria Baigorria',
   fullName: 'Veterinaria Baigorria',
-  tagline: 'Atención clínica de perros, gatos y animales no tradicionales',
+  tagline: 'Atención clínica de perros y gatos',
   branding: {
     logoAlt: 'Logo Veterinaria Baigorria',
   },
@@ -65,7 +65,7 @@ export const business = {
       'Veterinarios matriculados',
       'Atención sin turno (por orden de llegada)',
       'Ecografías y castraciones con turno',
-      'Ubicación: Estanislao del Campo 4239, La Ferrere',
+      'Ubicación: Estanislao del Campo 4239, Gregorio de Laferrere',
     ],
   },
 
@@ -83,7 +83,7 @@ export const business = {
     location: {
       badge: 'Horarios y Ubicación',
       title: 'Visitanos en Gregorio de Laferrere',
-      subtitle: 'Estamos en Estanislao del Campo 4239, La Ferrere. Te esperamos con tu mascota.',
+      subtitle: 'Estamos en Estanislao del Campo 4239, Gregorio de Laferrere. Te esperamos con tu mascota.',
       hoursTitle: 'Horarios de Atención',
       hoursCardTitle: 'Clínica Veterinaria',
       whereToFindUsTitle: 'Dónde Encontrarnos',
@@ -124,18 +124,18 @@ export const business = {
   // Dirección
   address: {
     street: 'Estanislao del Campo 4239',
-    city: 'La Ferrere',
+    city: 'LaFerrere',
     region: 'Buenos Aires',
     country: 'Argentina',
     countryCode: 'AR',
     // Para Google Maps / schema.org
     streetAddress: 'Estanislao del Campo 4239',
-    addressLocality: 'La Ferrere',
+    addressLocality: 'Gregorio de Laferrere',
     addressRegion: 'Buenos Aires',
     // Texto completo para mostrar
-    full: 'Estanislao del Campo 4239, La Ferrere (Gregorio de Laferrere), Buenos Aires, Argentina',
-    short: 'Estanislao del Campo 4239, La Ferrere',
-    withCrossStreet: 'Estanislao del Campo 4239 - La Ferrere (Gregorio de Laferrere), Buenos Aires',
+    full: 'Estanislao del Campo 4239, Gregorio de Laferrere, Buenos Aires, Argentina',
+    short: 'Estanislao del Campo 4239, Gregorio de Laferrere',
+    withCrossStreet: 'Estanislao del Campo 4239 - Gregorio de Laferrere, Buenos Aires',
   },
 
   // Redes sociales
@@ -179,11 +179,11 @@ export const business = {
     defaultTitle: 'Veterinaria Baigorria | Gregorio de Laferrere | Atención Clínica y Especialidades',
     homeTitle: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires | Atención Clínica y Especialidades',
     defaultSection: 'Veterinaria',
-    defaultTags: ['veterinaria', 'clínica veterinaria', 'especialidades médicas', 'Gregorio de Laferrere', 'Buenos Aires', 'Argentina', 'mascotas', 'perros', 'gatos', 'animales no tradicionales'],
+    defaultTags: ['veterinaria', 'clínica veterinaria', 'especialidades médicas', 'Gregorio de Laferrere', 'Buenos Aires', 'Argentina', 'mascotas', 'perros', 'gatos'],
     author: 'Veterinaria Baigorria',
     businessName: 'Veterinaria Baigorria',
     alternateName: 'Baigorria Veterinaria',
-    description: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires. Atención clínica de perros, gatos y animales no tradicionales. Especialidades médicas. ¡Pedí turno por WhatsApp!',
+    description: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires. Atención clínica de perros y gatos. Especialidades médicas. ¡Pedí turno por WhatsApp!',
     priceRange: '$$',
     currenciesAccepted: 'ARS',
     paymentAccepted: 'Cash, Credit Card, Debit Card, Transfer',
@@ -202,7 +202,7 @@ export const business = {
   // Meta tags geo
   geoTags: {
     region: 'AR-B',
-    placename: 'La Ferrere, Gregorio de Laferrere, Buenos Aires, Argentina',
+    placename: 'Gregorio de Laferrere, Buenos Aires, Argentina',
     position: '-34.7324022;-58.6033504',
     icbm: '-34.7324022, -58.6033504',
   },
@@ -211,7 +211,7 @@ export const business = {
   ogAddress: {
     phoneNumber: '5491135990190',
     streetAddress: 'Estanislao del Campo 4239',
-    locality: 'La Ferrere',
+    locality: 'Gregorio de Laferrere',
     region: 'Buenos Aires',
     postalCode: '',
     countryName: 'Argentina',
@@ -221,7 +221,7 @@ export const business = {
   manifest: {
     name: 'Veterinaria Baigorria',
     shortName: 'Baigorria Vet',
-    description: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires. Atención clínica de perros, gatos y animales no tradicionales. Especialidades médicas.',
+    description: 'Veterinaria Baigorria en Gregorio de Laferrere, Buenos Aires. Atención clínica de perros y gatos. Especialidades médicas.',
     categories: ['medical', 'lifestyle'],
     themeColor: '#1a5230',
     backgroundColor: '#ffffff',
