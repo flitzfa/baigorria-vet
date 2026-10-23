@@ -144,7 +144,7 @@ export const business = {
   whatsappUrl: 'https://wa.me/5491135990190',
   email: 'veterinariabaigorria1@gmail.com',
   googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Estanislao+del+Campo+4239,+La+Ferrere,+Buenos+Aires,+Argentina',
-  googleMapsPlaceUrl: 'https://www.google.com/maps/place/?q=place_id:PLACEHOLDER_PLACE_ID',
+  googleMapsPlaceUrl: 'https://www.google.com/maps/search/?api=1&query=Veterinaria+Baigorria+Estanislao+del+Campo+4239+La+Ferrere',
 
   // Horarios de atención (modelo flexible)
   hours: {
