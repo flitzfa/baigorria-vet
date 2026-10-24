@@ -1,4 +1,12 @@
 ---
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/poppins/latin-500.css';
+import '@fontsource/poppins/latin-600.css';
+import '@fontsource/poppins/latin-700.css';
+import '@fontsource/poppins/latin-800.css';
 import '../styles/global.css';
 // Base layout with full SEO
 import { business } from '../config/business';
@@ -191,14 +199,9 @@ const openingHoursSpecification = business.hours.schedule.flatMap((slot) =>
     })} />
     
     <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://wa.me" />
     <link rel="dns-prefetch" href="https://www.google.com" />
     
-    <!-- Fonts -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" media="print" onload="this.media='all'" />
     
   </head>
   <body class="font-sans text-gray-900 antialiased bg-white">
